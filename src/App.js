@@ -1,26 +1,60 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as firebase from 'firebase';
+import Root from './Components/root';
+// import ProvisionNavBar from './Components/navbar';
+// import TableTest from './Components/tableTest';
+// import AddUser from './Components/addUser';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  // constructor(props) {
+  //   super(props);
+
+  //   // this.state = {
+  //   //   users: this.getUsers()
+  //   // }
+  // }
+
+  // getUsers() {
+  //   var firebaseUsers = [];
+  //   firebase.firestore().collection('users').get().then(
+  //     snapshot => {
+  //       snapshot.forEach(doc => {
+  //         var data = doc.data();
+  //         firebaseUsers.push({
+  //           id: doc.id,
+  //           first_name: data.first_name,
+  //           last_name: data.last_name,
+  //           email: data.email
+  //         });
+  //       });
+  //       this.setState({
+  //         users: firebaseUsers
+  //       })
+  //     }
+  //   );
+  //   return firebaseUsers;
+  // }
+
+  // addUserCallback(user) {
+  //   this.setState({
+  //     users: user
+  //   })
+  // }
+
+  render() {
+    return (
+      <div>
+        <Root />
+        {/* <ProvisionNavBar />
+        <AddUser 
+          callback={this.addUserCallback}
+        />
+        <TableTest 
+          users={this.state.users}
+        /> */}
+      </div>
+    );
+  }
 }
 
 export default App;
