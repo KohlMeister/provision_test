@@ -3,7 +3,7 @@ import trash from '../assets/trash.svg';
 import edit from '../assets/edit.svg';
 import * as firebase from 'firebase';
 import * as _ from "underscore";
-import ExampleModal from './editModal';
+import EditUser from './editModal';
 import {firebaseDB} from '../firebase.js';
 
 class UserTable extends React.Component {
@@ -37,20 +37,15 @@ class UserTable extends React.Component {
   }
 
   getRows = () => {
-    const sortedUsers = this.state.users.sort((a, b) => (a.last_name > b.last_name ? 1 : -1))
-    const userRows = sortedUsers.map((user) =>
+    const userRows = this.state.users.map((user) =>
       <tr>
         <td>{user.first_name}</td>
         <td>{user.last_name}</td>
         <td>{user.email}</td>
-        <td><button className="btn" type="button"><img src={edit} alt="Edit"/></button><button className="btn" type="button" onClick={() => this.removeUser(user.id)}><img src={trash} alt="Delete" /></button></td>
+        <td><EditUser user={user}/><button className="btn" type="button" onClick={() => this.removeUser(user.id)}><img src={trash} alt="Delete" /></button></td>
       </tr>
     );
     return userRows;
-  }
-
-  showModal = () => {
-    return <ExampleModal />;
   }
 
   removeUser = (id) => {

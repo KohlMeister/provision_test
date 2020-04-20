@@ -29,7 +29,7 @@ class Root extends React.Component {
           });
         });
         this.setState({
-          users: firebaseUsers
+          users: firebaseUsers.sort((a, b) => (a.last_name > b.last_name ? 1 : -1))
         })
       }
     );

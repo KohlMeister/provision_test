@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
 import { Formik, ErrorMessage } from 'formik';
+import { v4 as uuidv4 } from 'uuid';
 
 function AddUserModal() {
   const [show, setShow] = useState(false);
@@ -38,22 +39,17 @@ function AddUserModal() {
         }}
         onSubmit={(values, {setSubmitting}) => {
           var user = {
-            id: 'abcd-iamaguid',
+            id: uuidv4(),
             first_name: values.firstName,
             last_name: values.lastName,
             email: values.email
           }
-          firebase.firestore().collection('users').add(user).catch(function(error) {
+          firebase.firestore().collection('users').doc(user.id).set(user).catch(function(error) {
             console.error('Error writing new message to database', error);
           });
 
           setSubmitting(false);
           setShow(false);
-          // this.props.callback(user);
-          // setTimeout(() => {
-          //   alert(JSON.stringify(values, null, 2));
-          //   setSubmitting(false);
-          // }, 400);
         }}
       >
         {({
@@ -93,7 +89,6 @@ function AddUserModal() {
           </Modal>
         )}
       </Formik>
-      
     </>
   );
 }
@@ -105,19 +100,6 @@ class AddUser extends React.Component {
     this.state = {
       users: []
     }
-  }
-
-  addUser() {
-    var user = {
-      id: 'abcd-iamaguid',
-      first_name: 'Johnny',
-      last_name: 'Goodman',
-      email: 't@m.ca'
-    }
-    firebase.firestore().collection('users').add(user).catch(function(error) {
-      console.error('Error writing new message to database', error);
-    });
-    this.props.callback(user);
   }
 
   render() {
