@@ -1,11 +1,10 @@
 import React from 'react';
-import trash from '../trash.svg';
-import edit from '../edit.svg';
+import trash from '../assets/trash.svg';
+import edit from '../assets/edit.svg';
 import * as firebase from 'firebase';
 import * as _ from "underscore";
 import ExampleModal from './editModal';
 import {firebaseDB} from '../firebase.js';
-import StupidModal from './stupidModal';
 
 class UserTable extends React.Component {
   constructor(props) {
@@ -38,7 +37,8 @@ class UserTable extends React.Component {
   }
 
   getRows = () => {
-    const userRows = this.state.users.map((user) =>
+    const sortedUsers = this.state.users.sort((a, b) => (a.last_name > b.last_name ? 1 : -1))
+    const userRows = sortedUsers.map((user) =>
       <tr>
         <td>{user.first_name}</td>
         <td>{user.last_name}</td>
@@ -81,9 +81,6 @@ class UserTable extends React.Component {
               {this.getRows()}
             </tbody>
           </table>
-        </div>
-        <div>
-          <StupidModal />
         </div>
       </div>
     );
