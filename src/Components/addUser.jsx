@@ -102,7 +102,7 @@ class AddUser extends React.Component {
 
   render() {
     return (
-      <div style={{padding: "5px"}}>
+      <div style={{padding: "5px 0px"}}>
         <AddUserModal 
           emails={this.props.emails}
           callback={this.props.callback}

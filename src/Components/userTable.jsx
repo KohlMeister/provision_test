@@ -27,9 +27,9 @@ class UserTable extends React.Component {
     return (
       <div>
         <div className="table-responsive">
-          <table className="table table-striped">
+          <table className="table table-striped table-hover">
             <thead>
-              <tr>
+              <tr className="thead-dark">
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
                 <th scope="col">Email</th>
