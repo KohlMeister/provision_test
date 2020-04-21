@@ -78,15 +78,17 @@ class Root extends React.Component {
     return (
       <React.Fragment>
         <ProvisionNavBar />
-        <AddUser
-          emails={this.getEmails()}
-          callback={this.addUserCallback}
-        />
-        <UserTable 
-          users={this.state.users}
-          editCallback={this.editUserCallback}
-          removeCallback={this.removeUserCallback}
-        />
+        <div className="container">
+          <AddUser
+            emails={this.getEmails()}
+            callback={this.addUserCallback}
+          />
+          <UserTable 
+            users={this.state.users}
+            editCallback={this.editUserCallback}
+            removeCallback={this.removeUserCallback}
+          />
+        </div>
       </React.Fragment>
     );
   }

@@ -15,7 +15,7 @@ function AddUserModal(props) {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Add User
+        Add Contact
       </Button>
       <Formik
         initialValues={{ firstName: "", lastName: "", email: ""}}
@@ -65,7 +65,7 @@ function AddUserModal(props) {
         }) => (
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>Add User</Modal.Title>
+              <Modal.Title>Add Contact</Modal.Title>
             </Modal.Header>
             <Modal.Body>
             <form id="add-user" onSubmit={handleSubmit}>
@@ -85,7 +85,7 @@ function AddUserModal(props) {
                 Close
               </Button>
               <Button variant="primary" type="submit" form="add-user">
-                Add User
+                Add Contact
               </Button>
             </Modal.Footer>
           </Modal>

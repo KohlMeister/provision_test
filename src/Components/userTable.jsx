@@ -17,7 +17,7 @@ class UserTable extends React.Component {
         <td>{user.first_name}</td>
         <td>{user.last_name}</td>
         <td>{user.email}</td>
-        <td><EditUser callback={this.props.editCallback} user={user}/><button className="btn btn-sm" type="button" onClick={() => this.props.removeCallback(user)}><img src={trash} alt="Delete" /></button></td>
+        <td><EditUser callback={this.props.editCallback} user={user}/><button className="btn btn-sm" style={{padding: "0px"}} type="button" onClick={() => this.props.removeCallback(user)}><img src={trash} alt="Delete" /></button></td>
       </tr>
     );
     return userRows;

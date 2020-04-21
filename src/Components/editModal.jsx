@@ -15,7 +15,7 @@ function EditUserModal(props) {
 
   return (
     <>
-      <button className="btn" type="button" onClick={handleShow}><img src={edit} alt="Edit" /></button>
+      <button className="btn" type="button" style={{padding: "0px 12px"}} onClick={handleShow}><img src={edit} alt="Edit" /></button>
       <Formik
         initialValues={{ firstName: props.user.first_name, lastName: props.user.last_name}}
         validate={ values => {
@@ -56,7 +56,7 @@ function EditUserModal(props) {
         }) => (
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>Edit User</Modal.Title>
+              <Modal.Title>Edit Contact</Modal.Title>
             </Modal.Header>
             <Modal.Body>
             <form id="add-user" onSubmit={handleSubmit}>
