@@ -41,7 +41,7 @@ function EditUserModal(props) {
             console.error('Error writing new message to database', error);
           });
 
-          setSubmitting(false);
+          props.callback(user);
           setShow(false);
         }}
       >
@@ -90,7 +90,10 @@ class EditUser extends React.Component {
 
   render() {
     return (
-      <EditUserModal user={this.props.user} />
+      <EditUserModal 
+        user={this.props.user} 
+        callback={this.props.callback}
+      />
     );
   }
 }

@@ -3,19 +3,18 @@ import * as firebase from 'firebase';
 import ProvisionNavBar from './navbar';
 import UserTable from './userTable';
 import AddUser from './addUser';
+import * as _ from 'underscore';
 
 class Root extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      users: this.getUsers(),
-      editable: false,
-      creating: true
+      users: [],
     }
   }
 
-  getUsers() {
+  componentDidMount() {
     var firebaseUsers = [];
     firebase.firestore().collection('users').get().then(
       snapshot => {
@@ -33,33 +32,60 @@ class Root extends React.Component {
         })
       }
     );
-    return firebaseUsers;
+  }
+
+  getEmails = () => {
+    var emails = [];
+    _.forEach(this.state.users, (user) => {
+      emails.push(user.email);
+    });
+
+    return emails;
   }
 
   addUserCallback = (user) => {
     this.setState({
-      users: user
+      users: this.state.users.concat(user)
     });
   }
 
-  editabilityCallback = (editable) => {
+  editUserCallback = (editedUser) => {
+    var users = this.state.users;
+    _.forEach(users, (user) => {
+      if (editedUser.id === user.id) {
+        user.first_name = editedUser.first_name;
+        user.last_name = editedUser.last_name;
+      }
+    });
+
     this.setState({
-      editable: editable
+      users: users
     });
   }
 
-  //TODO resize trash / row, refresh table
+  removeUserCallback = (removedUser) => {
+    firebase.firestore().collection('users').doc(removedUser.id).delete();
+    var newList = _.filter(this.state.users, function(user) {
+      return user.id !== removedUser.id
+    });
+    
+    this.setState({
+      users: newList
+    });
+  }
 
   render() {
     return (
       <React.Fragment>
         <ProvisionNavBar />
-        <AddUser 
+        <AddUser
+          emails={this.getEmails()}
           callback={this.addUserCallback}
         />
         <UserTable 
-          users={this.getUsers()}
-          editable={this.state.editable}
+          users={this.state.users}
+          editCallback={this.editUserCallback}
+          removeCallback={this.removeUserCallback}
         />
       </React.Fragment>
     );

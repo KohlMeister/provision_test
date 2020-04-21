@@ -3,8 +3,6 @@ import React from 'react';
 class ProvisionNavBar extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {}
   }
 
   render() {

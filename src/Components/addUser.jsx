@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Formik, ErrorMessage } from 'formik';
 import { v4 as uuidv4 } from 'uuid';
 
-function AddUserModal() {
+function AddUserModal(props) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -31,13 +31,13 @@ function AddUserModal() {
             errors.email = 'Required';
           } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
             errors.email = 'Invalid email address';
-          } else if (false) { //TODO
+          } else if (props.emails.includes(values.email)) {
             errors.email = 'Email already exists in contacts';
           }
 
           return errors;
         }}
-        onSubmit={(values, {setSubmitting}) => {
+        onSubmit={(values, {setSubmitting, resetForm, setStatus}) => {
           var user = {
             id: uuidv4(),
             first_name: values.firstName,
@@ -48,7 +48,9 @@ function AddUserModal() {
             console.error('Error writing new message to database', error);
           });
 
-          setSubmitting(false);
+          props.callback(user);
+
+          resetForm({});
           setShow(false);
         }}
       >
@@ -96,16 +98,15 @@ function AddUserModal() {
 class AddUser extends React.Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      users: []
-    }
   }
 
   render() {
     return (
       <div style={{padding: "5px"}}>
-        <AddUserModal />
+        <AddUserModal 
+          emails={this.props.emails}
+          callback={this.props.callback}
+        />
       </div>
     )
   }

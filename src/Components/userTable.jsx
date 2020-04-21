@@ -9,54 +9,18 @@ import {firebaseDB} from '../firebase.js';
 class UserTable extends React.Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      users: this.props.users,
-    }
-  }
-
-  componentDidMount() {
-    // var users = [];
-    // firebase.firestore().collection('users').get().then(
-    //   snapshot => {
-    //     snapshot.forEach(doc => {
-    //       var data = doc.data();
-    //       console.log(snapshot);
-    //       users.push({
-    //         id: doc.id,
-    //         first_name: data.first_name,
-    //         last_name: data.last_name,
-    //         email: data.email
-    //       });
-    //     });
-    //     this.setState({
-    //       users: users
-    //     })
-    //   }
-    // );
   }
 
   getRows = () => {
-    const userRows = this.state.users.map((user) =>
-      <tr>
+    const userRows = this.props.users.map((user) =>
+      <tr key={user.id}>
         <td>{user.first_name}</td>
         <td>{user.last_name}</td>
         <td>{user.email}</td>
-        <td><EditUser user={user}/><button className="btn" type="button" onClick={() => this.removeUser(user.id)}><img src={trash} alt="Delete" /></button></td>
+        <td><EditUser callback={this.props.editCallback} user={user}/><button className="btn btn-sm" type="button" onClick={() => this.props.removeCallback(user)}><img src={trash} alt="Delete" /></button></td>
       </tr>
     );
     return userRows;
-  }
-
-  removeUser = (id) => {
-    firebase.firestore().collection('users').doc(id).delete();
-    var newList = _.filter(this.state.users, function(user) {
-      return user.id !== id
-    });
-    
-    this.setState({
-      users: newList
-    });
   }
 
   render() {
